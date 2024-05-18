@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Manager | Home</title>
+    
+    <link rel="shortcut icon" href="Untitled - Figma 5_12_2024 12_12_45 PM.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {% load static %}
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="nav" class="nav">
+        <div class="left_nav">
+            <div class="displaying_left_nav">
+                <img id="menu_bar" src="">
+                <a href="">
+                    <div class="first-child">Password </div>
+                    <div class="second-child">Mannager</div>
+                </a>
+            </div>
+            <div class="responsive_nav">
+                <div id="responsive_menu" class="dropdown_content">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/">Add new </a></li>
+                        <li><a href="#">Donate</a></li>
+                        <li><a href="#">About Us</a></li>
+
+
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="middle_nav">
+            <div class="link_nav">
+                <a class="active" href="index.html">Home</a>
+                <a href="room_book.html">Add New</a>
+                <a href="#">Donate</a>
+                <a href="#">About</a>
+            </div>
+        </div>
+        <div class="right_nav">
+            {% if request.user.is_authenticated %}
+            <div class="log-info">
+                <a href="/logout">Log Out</a>
+            </div>
+            {% else %}
+            <div class="log-info">
+                <a href="/login">Log In</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% if request.user.is_authenticated%}
+        
+    
+    <div class="information-banner">
+        <p id="information-banner"> </p>
+    </div>
+
+    <div class="add_new_id_pass">
+       <a href="/addnew">Add New Id or Password</a>
+    </div>
+
+    <div class="id_password_collections">
+        {% for x in data %}
+        <div class="id_pass_content">
+            <p class="title">{{x.name}}</p>
+            <div class="id_container">Id : <p class="copy_id">{{x.ids}}</p></div>
+            <div class="password_container">Password : <p class="copy_password">{{x.password}}</p></div>
+            <div class="introduction"><p>Click Id Or Password To Copy </p></div>
+            <div class="action_buttons">
+                <a class="delete_button" href="/delete/{{x.id}}">Delete</a>
+                <a class="edit_button" href="/edit/{{x.id}}">Edit</a>
+            </div>
+        </div>
+        {% endfor %}
+        
+        
+    </div>
+    {%else %}
+    <div class="not_login_screen">
+        <div class="middle_content">
+            <div class="h1"><h1>Wel-Come To Password Manager</h1></div>
+            <div class="introduction">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, facilis, commodi libero quisquam iure excepturi inventore molestiae suscipit similique earum, harum eius? Iste eum a veritatis delectus neque blanditiis vel!
+            </div>
+            <div class="login">
+                <a href="/login">Login</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {{ request.user}}
+
+
+    <script src="{% static "script.js" %}"> 
+        
+
+    </script>
+</body>
+
+</html>
